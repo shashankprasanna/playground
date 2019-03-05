@@ -10,7 +10,7 @@ from keras.models import Model
 from download_cifar10 import load_data
 
 #%% Training parameters
-batch_size = 32  # orig paper trained all networks with batch_size=128
+batch_size = 32 
 epochs = 200
 
 
@@ -20,8 +20,8 @@ num_classes = 10
 
 #%% Initialize variables
 
-dataset_path = '/Users/shshnkp/Projects/playground/datasets/'
-checkpoint_path = '/Users/shshnkp/Projects/playground/checkpoints/'
+dataset_path = '/dltraining/datasets/'
+checkpoint_path = '/dltraining/checkpoints/'
 
 #%% Load and prepare datasets
 (x_train, y_train), (x_test, y_test) = load_data(dataset_path)
