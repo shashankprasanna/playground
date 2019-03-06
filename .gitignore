@@ -1,3 +1,6 @@
 datasets/
 __pycache__/
+.idea/
 download_debug.py
+checkpoints/
+.ipynb_checkpoints/
