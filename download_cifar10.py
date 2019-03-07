@@ -22,8 +22,8 @@ def load_data(download_path=os.getcwd()):
         path = get_file(dirname, origin=origin, untar=True, cache_dir=download_path, cache_subdir='')
 
     else:
-        print("Dataset already exists at: {}".format(path))
         path = os.path.join(download_path, dirname)
+        print("Dataset already exists at: {}".format(path))
 
     num_train_samples = 50000
 

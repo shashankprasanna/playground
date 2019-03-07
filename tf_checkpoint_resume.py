@@ -6,10 +6,9 @@ from keras.callbacks import ModelCheckpoint
 from keras.layers import Input, Dense, Flatten
 from keras.models import Model, load_model
 from download_cifar10 import load_data
+from keras import backend as K
 
 #%% Load and prepare datasets
-
-
 def load_prepare_dataset(dataset_path):
     (x_train, y_train), (x_test, y_test) = load_data(dataset_path)
 
@@ -29,8 +28,6 @@ def load_prepare_dataset(dataset_path):
     return (x_train, y_train), (x_test, y_test)
 
 #%% Define model
-
-
 def cifar10_resnet50_model(input_shape):
 
     input_tensor = Input(shape=input_shape)
@@ -47,9 +44,8 @@ def cifar10_resnet50_model(input_shape):
     mdl.summary()
     return mdl
 
+
 #%%
-
-
 def load_resume_model(checkpoint_path):
     list_of_checkpoint_files = os.listdir(checkpoint_path)
     checkpoint_epoch_number = max([int(file.split(".")[1]) for file in list_of_checkpoint_files])
@@ -59,8 +55,6 @@ def load_resume_model(checkpoint_path):
     return resume_model, checkpoint_epoch_number
 
 #%%
-
-
 def define_callbacks(checkpoint_path):
     # Model Checkpoint callback
     model_name = 'cifar10_model.{epoch:03d}.h5'
