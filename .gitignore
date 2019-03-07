@@ -4,3 +4,4 @@ __pycache__/
 download_debug.py
 checkpoints/
 .ipynb_checkpoints/
+tf_checkpoint_resume_v1.py
