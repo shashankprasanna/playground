@@ -92,6 +92,7 @@ def main():
     dataset_path = '/dltraining/datasets/'
     checkpoint_path = '/dltraining/checkpoints/'
 
+    # Paths for local testing
     #dataset_path = '/Users/shshnkp/Projects/Datasets'
     #checkpoint_path = '/Users/shshnkp/Projects/playground/checkpoints'
 
