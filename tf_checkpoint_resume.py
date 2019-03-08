@@ -89,11 +89,11 @@ def main():
     batch_size = 32
     epochs = 50
     # data_augmentation = False
-    #dataset_path = '/dltraining/datasets/'
-    #checkpoint_path = '/dltraining/checkpoints/'
+    dataset_path = '/dltraining/datasets/'
+    checkpoint_path = '/dltraining/checkpoints/'
 
-    dataset_path = '/Users/shshnkp/Projects/Datasets'
-    checkpoint_path = '/Users/shshnkp/Projects/playground/checkpoints'
+    #dataset_path = '/Users/shshnkp/Projects/Datasets'
+    #checkpoint_path = '/Users/shshnkp/Projects/playground/checkpoints'
 
     checkpoint_names = 'cifar10_model.{epoch:03d}.h5'
 
