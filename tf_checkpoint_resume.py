@@ -6,6 +6,8 @@ from keras.callbacks import ModelCheckpoint, CSVLogger
 from keras.layers import Input, Dense, Flatten
 from keras.models import Model, load_model
 from download_cifar10 import load_data
+import shutil
+
 
 #%% Load and prepare datasets
 def load_prepare_dataset(dataset_path):
@@ -88,15 +90,10 @@ def main():
 
     # Training parameters
     batch_size = 32
-    epochs = 50
-    # data_augmentation = False
+    epochs = 30
+    volume_mount_dir = '/dltraining/'
     dataset_path = '/dltraining/datasets/'
     checkpoint_path = '/dltraining/checkpoints/'
-
-    # Paths for local testing
-    # dataset_path = '/Users/shshnkp/Projects/Datasets'
-    # checkpoint_path = '/Users/shshnkp/Projects/playground/checkpoints'
-
     checkpoint_names = 'cifar10_model.{epoch:03d}.h5'
 
     # Load dataset
@@ -118,6 +115,8 @@ def main():
                   metrics=['accuracy'])
     model.fit(x_train, y_train, batch_size=batch_size, epochs=epochs, initial_epoch=epoch_number, callbacks=callbacks)
 
+    # If training is complete
+    shutil.copy2('/var/log/cloud-init-output.log', volume_mount_dir)
 
 if __name__ == "__main__":
     main()
