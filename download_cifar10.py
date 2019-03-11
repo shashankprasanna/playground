@@ -18,7 +18,8 @@ def load_data(download_path=os.getcwd()):
     origin = 'https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz'
 
     if not os.path.exists(os.path.join(download_path, dirname)):
-        os.mkdir(download_path) 
+        if not os.path.exists(download_path):
+            os.mkdir(download_path)
         path = get_file(dirname, origin=origin, untar=True, cache_dir=download_path, cache_subdir='')
 
     else:
