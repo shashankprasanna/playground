@@ -49,6 +49,7 @@ def cifar10_model(input_shape):
 #%%
 def load_checkpoint_model(checkpoint_path, checkpoint_names):
     list_of_checkpoint_files = os.listdir(checkpoint_path)
+    print(list_of_checkpoint_files)
     checkpoint_epoch_number = max([int(file.split(".")[1]) for file in list_of_checkpoint_files])
     checkpoint_epoch_path = os.path.join(checkpoint_path,
                                          checkpoint_names.format(epoch=checkpoint_epoch_number))
