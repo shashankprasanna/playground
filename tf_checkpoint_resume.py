@@ -77,7 +77,7 @@ def define_callbacks(checkpoint_path, checkpoint_names):
 
     # Loss history callback
     parent_directory_path = os.path.dirname(os.path.dirname(checkpoint_path))
-    epoch_results_callback = CSVLogger(parent_directory_path, 'training_log.csv')
+    epoch_results_callback = CSVLogger(os.path.join(parent_directory_path, 'training_log.csv'))
 
     callbacks = [checkpoint_callback, epoch_results_callback]
     return callbacks
