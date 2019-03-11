@@ -118,5 +118,8 @@ def main():
     # If training is complete
     shutil.copy2('/var/log/cloud-init-output.log', volume_mount_dir)
 
+
 if __name__ == "__main__":
     main()
+
+
