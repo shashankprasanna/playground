@@ -59,15 +59,6 @@ def load_checkpoint_model(checkpoint_path, checkpoint_names):
     return resume_model, checkpoint_epoch_number
 
 #%%
-class LossHistory(keras.callbacks.Callback):
-    def on_train_begin(self, logs={}):
-        self.losses = []
-
-    def on_batch_end(self, batch, logs={}):
-        self.losses.append(logs.get('loss'))
-
-
-#%%
 def define_callbacks(volume_mount_dir, checkpoint_path, checkpoint_names, today_date):
 
     # Model checkpoint callback
@@ -90,7 +81,7 @@ def define_callbacks(volume_mount_dir, checkpoint_path, checkpoint_names, today_
 def main():
 
     # Training parameters
-    batch_size = 32
+    batch_size = 512
     epochs = 30
     volume_mount_dir = '/dltraining/'
     dataset_path = os.path.join(volume_mount_dir, 'datasets')
