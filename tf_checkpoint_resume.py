@@ -108,6 +108,11 @@ def main():
                   metrics=['accuracy'])
     model.fit(x_train, y_train, batch_size=batch_size, epochs=epochs, initial_epoch=epoch_number, callbacks=callbacks)
 
+    # Score trained model.
+    scores = model.evaluate(x_test, y_test, verbose=1)
+    print('Test loss:', scores[0])
+    print('Test accuracy:', scores[1])
+
     # Backup terminal output once training is complete
     shutil.copy2('/var/log/cloud-init-output.log', os.path.join(volume_mount_dir,
                                                                 'cloud-init-output-{}.log'.format(today_date)))
