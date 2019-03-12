@@ -7,6 +7,7 @@ from keras.layers import Input, Dense, Flatten
 from keras.models import Model, load_model
 from download_cifar10 import load_data
 import shutil
+import datetime
 
 
 #%% Load and prepare datasets
@@ -67,7 +68,7 @@ class LossHistory(keras.callbacks.Callback):
 
 
 #%%
-def define_callbacks(checkpoint_path, checkpoint_names):
+def define_callbacks(volume_mount_dir, checkpoint_path, checkpoint_names, today_date):
 
     # Model checkpoint callback
     if not os.path.isdir(checkpoint_path):
@@ -78,8 +79,8 @@ def define_callbacks(checkpoint_path, checkpoint_names):
                                           monitor='val_loss')
 
     # Loss history callback
-    parent_directory_path = os.path.dirname(os.path.dirname(checkpoint_path))
-    epoch_results_callback = CSVLogger(os.path.join(parent_directory_path, 'training_log.csv'))
+    epoch_results_callback = CSVLogger(os.path.join(volume_mount_dir, 'training_log_{}.csv'.format(today_date)),
+                                       append=True)
 
     callbacks = [checkpoint_callback, epoch_results_callback]
     return callbacks
@@ -92,9 +93,10 @@ def main():
     batch_size = 32
     epochs = 30
     volume_mount_dir = '/dltraining/'
-    dataset_path = '/dltraining/datasets/'
-    checkpoint_path = '/dltraining/checkpoints/'
+    dataset_path = os.path.join(volume_mount_dir, 'datasets')
+    checkpoint_path = os.path.join(volume_mount_dir, 'checkpoints')
     checkpoint_names = 'cifar10_model.{epoch:03d}.h5'
+    today_date = datetime.datetime.today().strftime('%Y-%m-%d')
 
     # Load dataset
     (x_train, y_train), (x_test, y_test) = load_prepare_dataset(dataset_path)
@@ -108,15 +110,16 @@ def main():
         epoch_number = 0
 
     # Define Callbacks
-    callbacks = define_callbacks(checkpoint_path, checkpoint_names)
+    callbacks = define_callbacks(volume_mount_dir, checkpoint_path, checkpoint_names, today_date)
 
     model.compile(optimizer='adam',
                   loss='categorical_crossentropy',
                   metrics=['accuracy'])
     model.fit(x_train, y_train, batch_size=batch_size, epochs=epochs, initial_epoch=epoch_number, callbacks=callbacks)
 
-    # If training is complete
-    shutil.copy2('/var/log/cloud-init-output.log', volume_mount_dir)
+    # Backup terminal output once training is complete
+    shutil.copy2('/var/log/cloud-init-output.log', os.path.join(volume_mount_dir,
+                                                                'cloud-init-output-{}.log'.format(today_date)))
 
 
 if __name__ == "__main__":
