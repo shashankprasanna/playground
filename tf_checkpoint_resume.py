@@ -82,7 +82,7 @@ def main():
 
     # Training parameters
     batch_size = 512
-    epochs = 30
+    epochs = 5
     volume_mount_dir = '/dltraining/'
     dataset_path = os.path.join(volume_mount_dir, 'datasets')
     checkpoint_path = os.path.join(volume_mount_dir, 'checkpoints')
